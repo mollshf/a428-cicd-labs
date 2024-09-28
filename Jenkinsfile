@@ -15,7 +15,7 @@ node {
         }
         
         stage('Deploy') {
-            sshagent(credentials: ['ec2-001'])  {
+                sshagent(credentials: ['ec2-001'])   {
                     sh '''
                     ssh -o StrictHostKeyChecking=no -i ~/.ssh/MSI-SERVER.pem ubuntu@ec2-18-143-63-85.ap-southeast-1.compute.amazonaws.com <<EOF
                     
@@ -31,6 +31,7 @@ node {
                     EOF
                     '''
                 }
-        }
+            }
+        
     }
 }
