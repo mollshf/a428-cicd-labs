@@ -17,11 +17,13 @@ node {
         stage('Deploy') {
                 sshagent(credentials: ['ec2-001'])   {
                     sh '''
-                    ssh -o StrictHostKeyChecking=no -i ~/.ssh/MSI-SERVER.pem ubuntu@ec2-18-143-63-85.ap-southeast-1.compute.amazonaws.com <<EOF
+                    ssh -o StrictHostKeyChecking=no -i ~/.ssh/MSI-SERVER.pem ubuntu@ec2-13-229-134-251.ap-southeast-1.compute.amazonaws.com <<EOF
                     
                     cd ~/a428-cicd-labs
 
                     git pull
+
+                    npm install
 
                     './jenkins/scripts/deliver.sh'
                     'sleep 60'
