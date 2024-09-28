@@ -15,9 +15,22 @@ node {
         }
         
         stage('Deploy') {
-            sh './jenkins/scripts/deliver.sh'
-            sleep 60
-            sh './jenkins/scripts/kill.sh'
+            sshagent(credentials: ['ec2-001'])  {
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no -i ~/.ssh/MSI-SERVER.pem ubuntu@ec2-18-143-63-85.ap-southeast-1.compute.amazonaws.com <<EOF
+                    
+                    cd ~/a428-cicd-labs
+
+                    git pull
+
+                    './jenkins/scripts/deliver.sh'
+                    'sleep 60'
+                    './jenkins/scripts/kill.sh'
+
+                    exit
+                    EOF
+                    '''
+                }
         }
     }
 }
