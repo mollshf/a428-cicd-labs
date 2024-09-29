@@ -18,6 +18,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install'
+                sh 'pwd'
             }
         }
         stage('Test') {
@@ -33,6 +34,7 @@ pipeline {
         stage ('Deploy') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
+                sh 'pwd'
                 sleep 10
                 sh './jenkins/scripts/kill.sh'
                 // sshCommand(remote: remote, command: "cd ~/a428-cicd-labs")
