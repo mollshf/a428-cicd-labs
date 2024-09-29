@@ -33,6 +33,8 @@ pipeline {
         stage ('Deploy') {
             steps {
                 sshCommand(remote: remote, command: "cd ~/a428-cicd-labs")
+                sshCommand(remote: remote, command: "ls")
+                sleep 5
                 sshCommand(remote: remote, command: "git pull")
                 sshCommand(remote: remote, command: "npm install")
                 sshCommand(remote: remote, command: "./jenkins/scripts/deliver.sh")
