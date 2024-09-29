@@ -30,7 +30,6 @@ node {
                 sleep 10
                 sshCommand(remote: remote, command: "./jenkins/scripts/kill.sh")
             }
-                
-            }
+        }
     }
 }
