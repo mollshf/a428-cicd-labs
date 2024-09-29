@@ -1,3 +1,9 @@
+def remote=[:]
+remote.name = 'ec2'
+remote.user = 'ubuntu'
+remote.host = 'ec2-47-129-246-98.ap-southeast-1.compute.amazonaws.com'
+remote.identityFile = '/var/jenkins_home/.ssh/MSI-SERVER.pem'
+remote.allowAnyHosts = true
 node {
     docker.image('node:16-buster-slim').inside('-p 3000:3000') {
         
@@ -16,24 +22,13 @@ node {
         
         stage('Deploy') {
             steps {
-                    sshagent(credentials: ['ec2-001'])   {
-                    sh '''
-                    ssh -o StrictHostKeyChecking=no ubuntu@ec2-13-229-134-251.ap-southeast-1.compute.amazonaws.com <<EOF
-                    
-                    cd ~/a428-cicd-labs
-
-                    git pull
-
-                    npm install
-
-                    ./jenkins/scripts/deliver.sh
-                    'sleep 60'
-                    ./jenkins/scripts/kill.sh
-
-                    exit
-                    EOF
-                    '''
-                }
+                sshCommand(remote: remote, command: "cd ~/a428-cicd-labs")
+                sshCommand(remote: remote, command: "git pull")
+                sshCommand(remote: remote, command: "git pull")
+                sshCommand(remote: remote, command: "npm install")
+                sshCommand(remote: remote, command: "./jenkins/scripts/deliver.sh")
+                sleep 10
+                sshCommand(remote: remote, command: "./jenkins/scripts/kill.sh")
             }
                 
             }
