@@ -32,7 +32,6 @@ pipeline {
         }
         stage ('Deploy') {
             steps {
-                sshCommand(remote: remote, command: "")
                 sshCommand(remote: remote, command: "cd ~/a428-cicd-labs; git pull; ls")
                 // sshCommand(remote: remote, command: "ls")
                 // sleep 5
