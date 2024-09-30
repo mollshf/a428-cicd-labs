@@ -58,9 +58,9 @@ node {
         
         stage('Deploy') {
             steps {
-                sshCommand(remote: remote, command: "./jenkins/scripts/deliver.sh")
+                sh "./jenkins/scripts/deliver.sh"
                 sleep 60
-                sshCommand(remote: remote, command: "./jenkins/scripts/kill.sh")
+                sh "./jenkins/scripts/kill.sh"
             }
         }
     }
