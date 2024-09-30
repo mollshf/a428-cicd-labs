@@ -22,7 +22,7 @@ node {
     }
     stages {
         stage('sugoi') {
-            sh 'echo "$USER"'
+            sh 'echo "subarashi"'
         }
     }
 }
