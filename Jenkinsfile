@@ -20,4 +20,9 @@ node {
             sh "./jenkins/scripts/kill.sh"
         }
     }
+    stages {
+        stage('sugoi') {
+            sh 'echo "$USER"'
+        }
+    }
 }
